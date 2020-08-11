@@ -1,9 +1,12 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Options;
+using System.Text;
 
 namespace ReactCrudMvc
 {
@@ -22,6 +25,13 @@ namespace ReactCrudMvc
 
             services.AddControllersWithViews();
 
+            
+
+            //Enabling CORS Globally check configure method below for inject CORS into a container.
+            services.AddCors(c =>
+            {
+                c.AddPolicy("AllowOrigin", options => options.WithOrigins("http://localhost:44322"));
+            });
             // In production, the React files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
             {
@@ -61,6 +71,16 @@ namespace ReactCrudMvc
                 {
                     spa.UseReactDevelopmentServer(npmScript: "start");
                 }
+            });
+
+           // inject CORS into a container.
+            app.UseCors(options => options.WithOrigins("http://localhost:44322"));
+
+
+            app.Run(async (context) =>
+            {
+                await context.Response
+                .WriteAsync(System.Diagnostics.Process.GetCurrentProcess().ProcessName);
             });
         }
     }
