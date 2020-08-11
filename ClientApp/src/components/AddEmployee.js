@@ -2,22 +2,29 @@
 import { Form, FormGroup, Col, Button, FormControl } from 'react-bootstrap';
 import axios from 'axios';
 import { store } from 'react-notifications-component'
+import DatePicker from 'react-datepicker'
+import 'react-datepicker/dist/react-datepicker.css'
 
 export const AddEmployee = () => {
 
-    const [employee, setemployee] = useState({ Name: '', Phone: '', EmailId: '', Dob: '', Address: '', Country: '', State: '', City: '', ZipCode: '' });
+    const [employee, setemployee] = useState({ Name: '', Phone: '', EmailId: '',Address: '', Country: '', State: '', City: '' });
 
     const changeHandle = (e) => {
         e.persist();
         setemployee({ ...employee, [e.target.name]: e.target.value });
     }
 
-    const url = "http://localhost:44322/api/EmployeeMasters";
+    const [selectedDate, setSelectedDate] = useState();
+    const changeHandle2 =  date => setSelectedDate(date);
+    
+
+
+
+    const url = "http://localhost:59447/api/EmployeeMasters/Create";
     const insertEmployee = (e) => {
         e.preventDefault();
-        debugger;
-        const data = { Name: employee.Name, Phone: employee.Phone, EmailId: employee.EmailId, Dob: employee.Dob, Address: employee.Address, Country: employee.Country, State: employee.State, City: employee.City, ZipCode: employee.ZipCode }
-        axios.post(url + '/Create', data)
+        const data = { Name: employee.Name, Phone: employee.Phone, EmailId: employee.EmailId, DateofBirth: selectedDate, Address: employee.Address, Country: employee.Country, State: employee.State, City: employee.City }
+        axios.post(url , data)
             .then((result => {
                 store.addNotification({
                     title: 'Data Added',
@@ -78,7 +85,8 @@ export const AddEmployee = () => {
                                 <Col>
                                     <FormGroup>
                                         <label className="p-4"> Dob:</label>
-                                        <input type="date" className="form-control" name="Dob" id="txtDob" value={employee.Dob} onChange={changeHandle} />
+                                        <DatePicker selected={selectedDate} id="txtDob" name="DateofBirth" value={selectedDate} className="form-control"
+                                            onChange={changeHandle2} dateFormat="dd/MM/yyyy" />
                                     </FormGroup>
                                 </Col>
                             </Form.Row>
@@ -109,12 +117,7 @@ export const AddEmployee = () => {
                                         <input type="text" className="form-control" name="City" id="txtCity" value={employee.City} onChange={changeHandle} />
                                     </FormGroup>
                                 </Col>
-                                <Col>
-                                    <FormGroup>
-                                        <label className="p-4"> Zipcode:</label>
-                                        <input type="text" className="form-control" name="ZipCode" id="txtZipCode" value={employee.ZipCode} onChange={changeHandle} />
-                                    </FormGroup>
-                                </Col>
+                                
                             </Form.Row>
                             <Form.Row>
                                 <Col>

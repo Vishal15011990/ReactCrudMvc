@@ -25,13 +25,18 @@ namespace ReactCrudMvc
 
             services.AddControllersWithViews();
 
-            
+            services.AddMvc();
 
             //Enabling CORS Globally check configure method below for inject CORS into a container.
-            services.AddCors(c =>
-            {
-                c.AddPolicy("AllowOrigin", options => options.WithOrigins("http://localhost:44322"));
-            });
+            //services.AddCors(c =>
+            //{
+            //    c.AddPolicy("AllowOrigin", options => options.WithOrigins("http://localhost:44322"));
+            //});
+
+            services.AddScoped<ReactCrudMvc.Models.ReactDbContext>();
+            services.AddControllers()
+        .AddJsonOptions(options => options.JsonSerializerOptions.WriteIndented = true);
+
             // In production, the React files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
             {
@@ -74,7 +79,7 @@ namespace ReactCrudMvc
             });
 
            // inject CORS into a container.
-            app.UseCors(options => options.WithOrigins("http://localhost:44322"));
+            //app.UseCors(options => options.WithOrigins("http://localhost:44322"));
 
 
             app.Run(async (context) =>

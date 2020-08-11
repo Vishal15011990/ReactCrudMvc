@@ -60,6 +60,7 @@ namespace ReactCrudMvc.Models
                     .IsFixedLength();
 
                 entity.Property(e => e.State).HasMaxLength(50);
+               // entity.Property(e => e.ZipCode).HasMaxLength(10);
             });
 
             OnModelCreatingPartial(modelBuilder);

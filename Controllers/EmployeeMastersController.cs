@@ -14,10 +14,10 @@ namespace ReactCrudMvc.Controllers
 {
     [Route("api/EmployeeMasters")]
     [ApiController]
-    [EnableCors("AllowOrigin")]
+    //[EnableCors("AllowOrigin")]
     public class EmployeeMastersController : ControllerBase
     {
-        private readonly ReactDbContext _context;
+        private  ReactDbContext _context;
 
         public EmployeeMastersController(ReactDbContext context)
         {
@@ -71,7 +71,7 @@ namespace ReactCrudMvc.Controllers
                     obj.Country = employeeMaster.Country;
                     obj.State = employeeMaster.State;
                     obj.City = employeeMaster.City;
-                    obj.ZipCode = employeeMaster.ZipCode;
+                    //obj.ZipCode = employeeMaster.ZipCode;
                     obj.DateofBirth = employeeMaster.DateofBirth;
                     obj.IsActive = true;
                     _context.Entry(employeeMaster).State = EntityState.Modified;
@@ -86,7 +86,7 @@ namespace ReactCrudMvc.Controllers
             return employeeMaster.EmpId;
         }
 
-
+        
         [HttpPost]
         [Route("Create")]
         public int PostEmployeeMaster(EmployeeMaster employeeMaster)
