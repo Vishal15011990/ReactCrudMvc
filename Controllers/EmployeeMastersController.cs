@@ -26,9 +26,10 @@ namespace ReactCrudMvc.Controllers
 
         [HttpGet]
         [Route("Get")]
-        public IEnumerable<EmployeeMaster> GetEmployeeMaster()
+        public object GetEmployeeMaster()
         {
-            return  _context.EmployeeMaster.ToList();
+            var emp= _context.EmployeeMaster.ToList();
+            return emp;
         }
 
 
