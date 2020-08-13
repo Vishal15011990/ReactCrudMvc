@@ -35,37 +35,23 @@ namespace ReactCrudMvc.Controllers
 
         [HttpGet]
         [Route("Details")]
-        public EmployeeMaster GetEmployeeMaster(int id)
+        public object GetEmployeeMaster(int id)
         {
-            var employeeMaster = _context.EmployeeMaster.Find(id);
-
-            if (employeeMaster != null)
-            {
-                try
-                {
-                    return employeeMaster;
-                }
-                catch (Exception e)
-                {
-                    throw e;
-                }
-            }
-            else
-            {
-                return null;
-            }
+            var employeeMaster = _context.EmployeeMaster.Where(x => x.EmpId == id).ToList().FirstOrDefault();
+            return employeeMaster;
         }
 
 
         [HttpPut]
         [Route("Update")]
-        public int PutEmployeeMaster( EmployeeMaster employeeMaster)
+        public object PutEmployeeMaster( EmployeeMaster employeeMaster)
         {
             var obj = _context.EmployeeMaster.Where(x => x.EmpId == employeeMaster.EmpId).FirstOrDefault();
             try
             {
                 if (obj.EmpId > 0)
                 {
+                    //obj.EmpId = employeeMaster.EmpId;
                     obj.Name = employeeMaster.Name;
                     obj.Phone = employeeMaster.Phone;
                     obj.Address = employeeMaster.Address;
@@ -75,6 +61,8 @@ namespace ReactCrudMvc.Controllers
                     //obj.ZipCode = employeeMaster.ZipCode;
                     obj.DateofBirth = employeeMaster.DateofBirth;
                     obj.IsActive = true;
+                   // obj.Createdon = DateTime.Now;
+                    //obj.CreatedBy = Guid.NewGuid();
                     _context.Entry(employeeMaster).State = EntityState.Modified;
                     _context.SaveChanges();
                 }
@@ -84,7 +72,7 @@ namespace ReactCrudMvc.Controllers
                     throw e;
             }
 
-            return employeeMaster.EmpId;
+            return employeeMaster;
         }
 
         

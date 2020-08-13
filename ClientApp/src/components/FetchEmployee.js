@@ -2,7 +2,8 @@
 import { Card, Table, Button } from 'react-bootstrap';
 import axios from 'axios';
 
-export const FetchEmployee = () => {
+
+export const FetchEmployee = (props) => {
     const [data, setData] = useState([]);
 
     const url = "http://localhost:59447/api/EmployeeMasters/Get";
@@ -17,7 +18,12 @@ export const FetchEmployee = () => {
 
 
 
-
+    const edit = (id) => {
+        props.history.push({
+            pathname: '/Edit'+id
+        });
+         
+    }
 
 
 
@@ -68,10 +74,10 @@ export const FetchEmployee = () => {
                                 <td>{item.city}</td>
                                 <div>
                                     <td>
-                                        <Button variant="primary">Edit</Button>
+                                        <Button variant="primary" onClick={() => { edit(item.empId) }}>Edit</Button>
                                     </td>
                                     <td>
-                                        <Button variant="success">Delete</Button>
+                                        <Button variant="success" >Delete</Button>
                                     </td>
                                 </div>
                             </tr>
