@@ -7,6 +7,7 @@ export const FetchEmployee = (props) => {
     const [data, setData] = useState([]);
 
     const url = "http://localhost:59447/api/EmployeeMasters/Get";
+
     useEffect(() => {
         //debugger;
         axios.get(url)
@@ -23,6 +24,14 @@ export const FetchEmployee = (props) => {
             pathname: '/Edit'+id
         });
          
+    }
+
+    const deleteEmp = (id) => {
+        axios.delete("http://localhost:59447/api/EmployeeMasters/Delete?id=" + id)
+            .then(res => {
+                props.history.push('/')
+                window.location.reload(false); 
+            })
     }
 
 
@@ -77,7 +86,7 @@ export const FetchEmployee = (props) => {
                                         <Button variant="primary" onClick={() => { edit(item.empId) }}>Edit</Button>
                                     </td>
                                     <td>
-                                        <Button variant="success" >Delete</Button>
+                                        <Button variant="success" onClick={() => { deleteEmp(item.empId) }} >Delete</Button>
                                     </td>
                                 </div>
                             </tr>

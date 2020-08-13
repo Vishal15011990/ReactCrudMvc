@@ -28,7 +28,7 @@ namespace ReactCrudMvc.Controllers
         [Route("Get")]
         public object GetEmployeeMaster()
         {
-            var emp= _context.EmployeeMaster.ToList();
+            var emp= _context.EmployeeMaster.Where(x=>x.IsActive==true).ToList();
             return emp;
         }
 
@@ -51,19 +51,15 @@ namespace ReactCrudMvc.Controllers
             {
                 if (obj.EmpId > 0)
                 {
-                    //obj.EmpId = employeeMaster.EmpId;
+                   
                     obj.Name = employeeMaster.Name;
                     obj.Phone = employeeMaster.Phone;
                     obj.Address = employeeMaster.Address;
                     obj.Country = employeeMaster.Country;
                     obj.State = employeeMaster.State;
                     obj.City = employeeMaster.City;
-                    //obj.ZipCode = employeeMaster.ZipCode;
                     obj.DateofBirth = employeeMaster.DateofBirth;
                     obj.IsActive = true;
-                   // obj.Createdon = DateTime.Now;
-                    //obj.CreatedBy = Guid.NewGuid();
-                    _context.Entry(employeeMaster).State = EntityState.Modified;
                     _context.SaveChanges();
                 }
             }
@@ -98,23 +94,25 @@ namespace ReactCrudMvc.Controllers
 
         [HttpDelete]
         [Route("Delete")]
-        public int DeleteEmployeeMaster(int id)
+        public bool DeleteEmployeeMaster(int id)
         {
-           var employeeMaster = _context.EmployeeMaster.Find(id);
             try
             {
-                EmployeeMaster emp = new EmployeeMaster();
-                if (employeeMaster != null)
+                EmployeeMaster emp = _context.EmployeeMaster.Find(id);
+
+                if (emp != null)
                 {
-                    emp.IsDelete = false;
-                    _context.SaveChangesAsync();
+                    emp.IsDelete = true;
+                    emp.IsActive = false;
+                    _context.Entry(emp).State=EntityState.Modified;
+                    _context.SaveChanges();
                 }
             }
             catch (Exception e)
             {
                 throw e;
             }
-            return employeeMaster.EmpId;
+            return true; 
         }
 
         //private bool employeemasterexists(int id)

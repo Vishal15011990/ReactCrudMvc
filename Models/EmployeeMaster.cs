@@ -16,11 +16,11 @@ namespace ReactCrudMvc.Models
         public bool? IsActive { get; set; }
         public bool? IsDelete { get; set; }
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
-        public DateTime Createdon { get; set; }
-        public Guid CreatedBy { get; set; }
+        public DateTime? Createdon { get; set; }
+        public Guid? CreatedBy { get; set; }
         public string Country { get; set; }
         public string State { get; set; }
         public string City { get; set; }
-        //public int? ZipCode { get; set; }
+        //public string? ZipCode { get; set; }
     }
 }
