@@ -4,6 +4,7 @@ import axios from 'axios';
 import { store } from 'react-notifications-component'
 import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
+import { useForm } from 'react-hook-form'
 
 export const AddEmployee = (props) => {
 
@@ -16,8 +17,8 @@ export const AddEmployee = (props) => {
 
     const [selectedDate, setSelectedDate] = useState();
     const changeHandle2 =  date => setSelectedDate(date);
-    
 
+    const { register, handleSubmit,errors } = useForm();
 
 
     const url = "http://localhost:59447/api/EmployeeMasters/Create";
@@ -61,18 +62,26 @@ export const AddEmployee = (props) => {
             <div className="container fluid ">
                 <div className="row">
                     <div className="col-sm">
-                        <Form onSubmit={insertEmployee}>
+                        <Form onSubmit={handleSubmit(insertEmployee)}>
                             <Form.Row>
                                 <Col>
                                     <FormGroup>
                                         <label className="p-4"> Name:</label>
-                                        <input type="text" className="form-control" name="Name" id="txtName" value={employee.Name} onChange={changeHandle} />
+                                        <input type="text" className="form-control" name="Name"
+                                            id="txtName" value={employee.Name} onChange={changeHandle} ref={register({ required: true })} />
+
+                                        {errors.Name && errors.Name.type === "required" && (<p>Name Is Requied </p>)}
+
                                     </FormGroup>
                                 </Col>
                                 <Col>
                                     <FormGroup>
                                         <label className="p-4"> Phone:</label>
-                                        <input type="text" className="form-control" name="Phone" id="txtPhone" value={employee.Phone} onChange={changeHandle} maxLength="10" />
+                                        <input type="text" className="form-control" name="Phone" id="txtPhone" value={employee.Phone} onChange={changeHandle}
+                                            ref={register({ required: true })} maxLength="10" />
+
+                                        {errors.Phone && errors.Phone.type === "required" && (<p>Phone Is Requied </p>)}
+
                                     </FormGroup>
                                 </Col>
                             </Form.Row>
@@ -80,14 +89,21 @@ export const AddEmployee = (props) => {
                                 <Col>
                                     <FormGroup>
                                         <label className="p-4"> EmailId:</label>
-                                        <input type="text" className="form-control" name="EmailId" id="txtEmailId" value={employee.EmailId} onChange={changeHandle} />
+                                        <input type="text" className="form-control" name="EmailId" id="txtEmailId" value={employee.EmailId}
+                                            onChange={changeHandle} ref={register({ required: true })} />
+
+                                        {errors.EmailId && errors.EmailId.type === "required" && (<p>EmailId Is Requied </p>)}
+
                                     </FormGroup>
                                 </Col>
                                 <Col>
                                     <FormGroup>
                                         <label className="p-4"> Dob:</label>
                                         <DatePicker selected={selectedDate} id="txtDob" name="DateofBirth" value={selectedDate} className="form-control"
-                                            onChange={changeHandle2} dateFormat="dd/MM/yyyy" />
+                                            onChange={changeHandle2} dateFormat="dd/MM/yyyy" ref={register({ required: true })} />
+
+                                        {errors.DateofBirth && errors.DateofBirth.type === "required" && (<p>Date Of Birth Is Requied </p>)}
+
                                     </FormGroup>
                                 </Col>
                             </Form.Row>
@@ -95,13 +111,21 @@ export const AddEmployee = (props) => {
                                 <Col>
                                     <FormGroup>
                                         <label className="p-4">Address:</label>
-                                        <input type="text" className="form-control" name="Address" id="txtAddress" value={employee.Address} onChange={changeHandle} />
+                                        <input type="text" className="form-control" name="Address" id="txtAddress" value={employee.Address} onChange={changeHandle}
+                                            ref={register({ required: true })} />
+
+                                        {errors.Address && errors.Address.type === "required" && (<p>Address Is Requied </p>)}
+
                                     </FormGroup>
                                 </Col>
                                 <Col>
                                     <FormGroup>
                                         <label className="p-4">Country:</label>
-                                        <input type="text" className="form-control" name="Country" id="txtCountry" value={employee.Country} onChange={changeHandle} />
+                                        <input type="text" className="form-control" name="Country" id="txtCountry" value={employee.Country} onChange={changeHandle}
+                                            ref={register({ required: true })} />
+
+                                        {errors.Country && errors.Country.type === "required" && (<p>Country Is Requied </p>)}
+
                                     </FormGroup>
                                 </Col>
                             </Form.Row>
@@ -109,13 +133,21 @@ export const AddEmployee = (props) => {
                                 <Col>
                                     <FormGroup>
                                         <label className="p-4"> State:</label>
-                                        <input type="text" className="form-control" name="State" id="txtState" value={employee.State} onChange={changeHandle} />
+                                        <input type="text" className="form-control" name="State" id="txtState" value={employee.State} onChange={changeHandle}
+                                            ref={register({ required: true })} />
+
+                                        {errors.State && errors.State.type === "required" && (<p>State Is Requied </p>)}
+
                                     </FormGroup>
                                 </Col>
                                 <Col>
                                     <FormGroup>
                                         <label className="p-4">City:</label>
-                                        <input type="text" className="form-control" name="City" id="txtCity" value={employee.City} onChange={changeHandle} />
+                                        <input type="text" className="form-control" name="City" id="txtCity" value={employee.City} onChange={changeHandle}
+                                            ref={register({ required: true })} />
+
+                                        {errors.City && errors.City.type === "required" && (<p>City Is Requied </p>)}
+
                                     </FormGroup>
                                 </Col>
                                 
