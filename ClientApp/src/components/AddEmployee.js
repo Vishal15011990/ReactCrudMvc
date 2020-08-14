@@ -23,6 +23,7 @@ export const AddEmployee = (props) => {
     
 
     useEffect(() => {
+        
         $("#txtName").on('focusout', function () {
             const name = $("#txtName").val();
             if (name === "") {
@@ -39,10 +40,24 @@ export const AddEmployee = (props) => {
 
         $("#txtEmailId").on('focusout', function () {
             const emailId = $("#txtEmailId").val();
-            if (emailId === "") {
-                $("#lblEmailIdError").html("Enter Address Please").show().fadeOut(2000);
+            let regex = /^[a-zA-Z0-9]+@(?:[a-zA-Z0-9]+\.)+[A-Za-z]+$/;
+            if (emailId === "" || !regex.test(emailId)) {
+                $("#lblEmailIdError").html("Enter EmailId Please").show().fadeOut(2000);
+                $("#txtEmailId").val("");
             }
         });
+
+        //$("#txtEmailId").on('blur', function () {
+        //    const emailId2 = $("#txtEmailId").val();
+        //    let regex = /^[a-zA-Z0-9]+@(?:[a-zA-Z0-9]+\.)+[A-Za-z]+$/;
+        //    if (!regex.test(emailId2)) {
+        //        $("#lblEmailIdError").html("Email Id Is Not Valid").show().fadeOut(1000);
+        //        $("#txtEmailId").val("");
+        //    }
+
+        //});
+
+
         $("#txtAddress").on('focusout', function () {
             const address = $("#txtAddress").val();
             if (address === "") {
@@ -75,7 +90,8 @@ export const AddEmployee = (props) => {
             }
         });
 
-    });
+    }, []);
+
     const url = "http://localhost:59447/api/EmployeeMasters/Create";
     const insertEmployee = (e) => {
         e.preventDefault();
