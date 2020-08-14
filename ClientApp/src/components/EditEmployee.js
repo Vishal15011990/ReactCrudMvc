@@ -3,6 +3,8 @@ import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
 import { Form, FormGroup, Col } from 'react-bootstrap';
 import axios from 'axios'
+import $ from 'jquery'
+import './formvalidation.css'
 
 export const EditEmployee = (props) => {
 
@@ -26,7 +28,62 @@ export const EditEmployee = (props) => {
             .then(res => {
                 setData(res.data)
             })
-    },[]);
+    }, []);
+
+
+    //useEffect(() => {
+    //    $("#txtName").on('focusout', function () {
+    //        const name = $("#txtName").val();
+    //        if (name === "") {
+    //            $("#lblNameError").html("Enter name Please").show().fadeOut(2000);
+    //        }
+    //    });
+
+    //    $("#txtPhone").on('focusout', function () {
+    //        const phone = $("#txtPhone").val();
+    //        if (phone === "") {
+    //            $("#lblPhoneError").html("Enter Phone Number Please").show().fadeOut(2000);
+    //        }
+    //    });
+
+    //    $("#txtEmailId").on('focusout', function () {
+    //        const emailId = $("#txtEmailId").val();
+    //        if (emailId === "") {
+    //            $("#lblEmailIdError").html("Enter Address Please").show().fadeOut(2000);
+    //        }
+    //    });
+    //    $("#txtAddress").on('focusout', function () {
+    //        const address = $("#txtAddress").val();
+    //        if (address === "") {
+    //            $("#lblAddressError").html("Enter Address Please").show().fadeOut(2000);
+    //        }
+    //    });
+
+    //    $("#txtDob").on('focusout', function () {
+    //        const dob = $("#txtDob").val();
+    //        if (dob === "") {
+    //            $("#lblDateofBirthError").html("Enter Dob Please").show().fadeOut(2000);
+    //        }
+    //    });
+    //    $("#txtCountry").on('focusout', function () {
+    //        const country = $("#txtCountry").val();
+    //        if (country === "") {
+    //            $("#lblCountryError").html("Enter Country").show().fadeOut(2000);
+    //        }
+    //    });
+    //    $("#txtState").on('focusout', function () {
+    //        const state = $("#txtState").val();
+    //        if (state === "") {
+    //            $("#lblStateError").html("Enter State").show().fadeOut(2000);
+    //        }
+    //    });
+    //    $("#txtCity").on('focusout', function () {
+    //        const city = $("#txtCity").val();
+    //        if (city === "") {
+    //            $("#lblCityError").html("Enter City").show().fadeOut(2000);
+    //        }
+    //    });
+    //});
 
     const editEmployee = (e) => {
         debugger;
@@ -61,12 +118,18 @@ export const EditEmployee = (props) => {
                                     <FormGroup>
                                         <label className="p-4"> Name:</label>
                                         <input type="text" className="form-control" name="name" id="txtName" placeholder="Name" value={employee.name || " "} onChange={changeHandle} />
+
+                                        <span id="lblNameError"></span>
+
                                     </FormGroup>
                                 </Col>
                                 <Col>
                                     <FormGroup>
                                         <label className="p-4"> Phone:</label>
                                         <input type="text" className="form-control" name="phone" id="txtPhone" value={employee.phone || " "} onChange={changeHandle} maxLength="10" />
+
+                                        <span id="lblPhoneError"></span>
+
                                     </FormGroup>
                                 </Col>
                             </Form.Row>
@@ -75,6 +138,9 @@ export const EditEmployee = (props) => {
                                     <FormGroup>
                                         <label className="p-4"> EmailId:</label>
                                         <input type="text" className="form-control" name="emailId" id="txtEmailId" value={employee.emailId || " "} onChange={changeHandle} />
+
+                                        <span id="lblEmailIdError"></span>
+
                                     </FormGroup>
                                 </Col>
                                 <Col>
@@ -82,6 +148,10 @@ export const EditEmployee = (props) => {
                                         <label className="p-4"> Dob:</label>
                                         <DatePicker selected={selectedDate} id="txtDob" name="dateofBirth" value={employee.dateofBirth || " "} className="form-control"
                                             onChange={changeHandle2} dateFormat="dd/MM/yyyy" />
+
+
+                                        
+
                                     </FormGroup>
                                 </Col>
                             </Form.Row>
@@ -90,12 +160,19 @@ export const EditEmployee = (props) => {
                                     <FormGroup>
                                         <label className="p-4">Address:</label>
                                         <input type="text" className="form-control" name="address" id="txtAddress" value={employee.address || " "} onChange={changeHandle} />
+
+                                        <span id="lblAddressError"></span>
+                                        
+
                                     </FormGroup>
                                 </Col>
                                 <Col>
                                     <FormGroup>
                                         <label className="p-4">Country:</label>
                                         <input type="text" className="form-control" name="country" id="txtCountry" value={employee.country || " "} onChange={changeHandle} />
+
+                                        <span id="lblCountryError"></span>
+
                                     </FormGroup>
                                 </Col>
                             </Form.Row>
@@ -104,12 +181,18 @@ export const EditEmployee = (props) => {
                                     <FormGroup>
                                         <label className="p-4"> State:</label>
                                         <input type="text" className="form-control" name="state" id="txtState" value={employee.state || " "} onChange={changeHandle} />
+
+                                        <span id="lblStateError"></span>
+
                                     </FormGroup>
                                 </Col>
                                 <Col>
                                     <FormGroup>
                                         <label className="p-4">City:</label>
-                                        <input type="text" className="form-control" name="city" id="txtCity" value={employee.city || " " } onChange={changeHandle} />
+                                        <input type="text" className="form-control" name="city" id="txtCity" value={employee.city || " "} onChange={changeHandle} />
+
+                                        <span id="lblCityError"></span>
+
                                     </FormGroup>
                                 </Col>
 
