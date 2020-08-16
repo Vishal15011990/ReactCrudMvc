@@ -6,6 +6,7 @@ import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
 import $ from 'jquery'
 import './formvalidation.css'
+import { Card, Table, Button } from 'react-bootstrap';
 
 //import { useForm } from 'react-hook-form'
 
@@ -16,7 +17,7 @@ export const AddEmployee = (props) => {
     const changeHandle = (e) => {
         e.persist();
         setemployee({ ...employee, [e.target.name]: e.target.value });
-        employee["EmailId"] = "";
+        
     }
 
     const [selectedDate, setSelectedDate] = useState();
@@ -39,8 +40,9 @@ export const AddEmployee = (props) => {
         });
 
         $("#txtEmailId").on('focusout', function () {
-            //const emailId = $("#txtEmailId").val();
-            if (employee["EmailId"] === "") {
+            const emailId = $("#txtEmailId").val();
+           
+            if (emailId === "") {
                 $("#lblEmailIdError").html("Enter EmailId Please").show().fadeOut(2000);
                
             }
@@ -82,6 +84,7 @@ export const AddEmployee = (props) => {
 
 
     function emailValidate() {
+        
         const emailId = $("#txtEmailId").val();
         let regex = /^[a-zA-Z0-9]+@(?:[a-zA-Z0-9]+\.)+[A-Za-z]+$/;
         if (!regex.test(emailId)) {
@@ -90,57 +93,21 @@ export const AddEmployee = (props) => {
         }
     }
 
-    const validate = () => {
-        const name = $("#txtName").val();
-        const phone = $("#txtPhone").val();
-        const emailId = $("#txtEmailId").val();
-        const address = $("#txtAddress").val();
-        const dob = $("#txtDob").val();
-        const country = $("#txtCountry").val();
-        const state = $("#txtState").val();
-        const city = $("#txtCity").val();
-        if (name === "") {
-            $("#lblNameError").html("Enter name Please").show().fadeOut(2000);
-        }
-
-        else if (phone === "") {
-            $("#lblPhoneError").html("Enter Phone Number Please").show().fadeOut(2000);
-        }
-
-        else if (emailId === "") {
-            $("#lblEmailIdError").html("Enter EmailId Please").show().fadeOut(2000);
-        }
-
-        else if (address === "") {
-            $("#lblAddressError").html("Enter Address Please").show().fadeOut(2000);
-        }
-
-
-        else if (dob === "") {
-            $("#lblDateofBirthError").html("Enter Dob Please").show().fadeOut(2000);
-        }
-
-        else if (country === "") {
-            $("#lblCountryError").html("Enter Country").show().fadeOut(2000);
-        }
-
-
-        else if (state === "") {
-            $("#lblStateError").html("Enter State").show().fadeOut(2000);
-        }
-
-
-        else if (city === "") {
-            $("#lblCityError").html("Enter City").show().fadeOut(2000);
-        }
-    }
-
 
 
     const url = "http://localhost:59447/api/EmployeeMasters/Create";
     const insertEmployee = (e) => {
         e.preventDefault();
-       
+
+        //const name = $("#txtName").val();
+        //const phone = $("#txtPhone").val();
+        //const emailId = $("#txtEmailId").val();
+        //const address = $("#txtAddress").val();
+        //const dob = $("#txtDob").val();
+        //const country = $("#txtCountry").val();
+        //const state = $("#txtState").val();
+        //const city = $("#txtCity").val();
+
         const data = {
             Name: employee.Name,
             Phone: employee.Phone,
@@ -151,7 +118,13 @@ export const AddEmployee = (props) => {
             State: employee.State,
             City: employee.City
         }
-            debugger;
+
+        //debugger;
+        //if (employee.Name === "" && employee.Phone === "" && employee.EmailId === "" && employee.Address === "" && selectedDate === "" && employee.Country === "" && employee.State === "" && employee.City === "") {
+        //    $("#lblDetailedError").html("Enter name Please").show().fadeOut(2000);
+        //}
+        //else {
+            
             axios.post(url, data)
                 .then((result => {
                     props.history.push('/')
@@ -180,14 +153,20 @@ export const AddEmployee = (props) => {
                         }
                     })
                 })
+        //}
        
     }
 
 
 
     return (
-        
-            <React.Fragment>
+       
+        <React.Fragment>
+            <Card className="mt-4">
+                <Card.Header>
+                    <span id="lblDetailedError" className="h3"></span>
+                </Card.Header>
+            </Card>
                 <div className="container fluid ">
                     <div className="row">
                         <div className="col-sm">
