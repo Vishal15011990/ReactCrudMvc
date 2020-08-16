@@ -23,7 +23,6 @@ export const AddEmployee = (props) => {
     
 
     useEffect(() => {
-        
         $("#txtName").on('focusout', function () {
             const name = $("#txtName").val();
             if (name === "") {
@@ -37,26 +36,6 @@ export const AddEmployee = (props) => {
                 $("#lblPhoneError").html("Enter Phone Number Please").show().fadeOut(2000);
             }
         });
-
-        $("#txtEmailId").on('focusout', function () {
-            const emailId = $("#txtEmailId").val();
-            let regex = /^[a-zA-Z0-9]+@(?:[a-zA-Z0-9]+\.)+[A-Za-z]+$/;
-            if (emailId === "" || !regex.test(emailId)) {
-                $("#lblEmailIdError").html("Enter EmailId Please").show().fadeOut(2000);
-                $("#txtEmailId").val("");
-            }
-        });
-
-        //$("#txtEmailId").on('blur', function () {
-        //    const emailId2 = $("#txtEmailId").val();
-        //    let regex = /^[a-zA-Z0-9]+@(?:[a-zA-Z0-9]+\.)+[A-Za-z]+$/;
-        //    if (!regex.test(emailId2)) {
-        //        $("#lblEmailIdError").html("Email Id Is Not Valid").show().fadeOut(1000);
-        //        $("#txtEmailId").val("");
-        //    }
-
-        //});
-
 
         $("#txtAddress").on('focusout', function () {
             const address = $("#txtAddress").val();
@@ -77,7 +56,7 @@ export const AddEmployee = (props) => {
                 $("#lblCountryError").html("Enter Country").show().fadeOut(2000);
             }
         });
-         $("#txtState").on('focusout', function () {
+        $("#txtState").on('focusout', function () {
             const state = $("#txtState").val();
             if (state === "") {
                 $("#lblStateError").html("Enter State").show().fadeOut(2000);
@@ -89,42 +68,97 @@ export const AddEmployee = (props) => {
                 $("#lblCityError").html("Enter City").show().fadeOut(2000);
             }
         });
-
     }, []);
+
+
+    function emailValidate() {
+        const emailId = $("#txtEmailId").val();
+        let regex = /^[a-zA-Z0-9]+@(?:[a-zA-Z0-9]+\.)+[A-Za-z]+$/;
+        if (emailId === "" || !regex.test(emailId)) {
+            $("#lblEmailIdError").html("Enter EmailId Please").show().fadeOut(2000);
+            $("#txtEmailId").val("");
+        }
+    }
+
+    const validate = () => {
+        const name = $("#txtName").val();
+        const phone = $("#txtPhone").val();
+        const address = $("#txtAddress").val();
+        const dob = $("#txtDob").val();
+        const country = $("#txtCountry").val();
+        const state = $("#txtState").val();
+        const city = $("#txtCity").val();
+        if (name === "") {
+            $("#lblNameError").html("Enter name Please").show().fadeOut(2000);
+        }
+
+        else if (phone === "") {
+            $("#lblPhoneError").html("Enter Phone Number Please").show().fadeOut(2000);
+        }
+
+
+        else if (address === "") {
+            $("#lblAddressError").html("Enter Address Please").show().fadeOut(2000);
+        }
+
+
+        else if (dob === "") {
+            $("#lblDateofBirthError").html("Enter Dob Please").show().fadeOut(2000);
+        }
+
+        else if (country === "") {
+            $("#lblCountryError").html("Enter Country").show().fadeOut(2000);
+        }
+
+
+        else if (state === "") {
+            $("#lblStateError").html("Enter State").show().fadeOut(2000);
+        }
+
+
+        else if (city === "") {
+            $("#lblCityError").html("Enter City").show().fadeOut(2000);
+        }
+    }
+
+
 
     const url = "http://localhost:59447/api/EmployeeMasters/Create";
     const insertEmployee = (e) => {
         e.preventDefault();
        
         const data = { Name: employee.Name, Phone: employee.Phone, EmailId: employee.EmailId, DateofBirth: selectedDate, Address: employee.Address, Country: employee.Country, State: employee.State, City: employee.City }
-        axios.post(url, data)
-            .then((result => {
-                props.history.push('/')
-                store.addNotification({
-                    title: 'Data Added',
-                    message: 'Employee Added Successfully',
-                    type: 'success',
-                    container: 'center',
-                    animationIn: ["animated", "fadeIn"],
-                    animationOut: ["animated", "fadeOut"],
-                    dismiss: {
-                        duration: 2000
-                    }
+        const isValid = validate();
+        if (isValid) {
+            axios.post(url, data)
+                .then((result => {
+                    props.history.push('/')
+                    store.addNotification({
+                        title: 'Data Added',
+                        message: 'Employee Added Successfully',
+                        type: 'success',
+                        container: 'center',
+                        animationIn: ["animated", "fadeIn"],
+                        animationOut: ["animated", "fadeOut"],
+                        dismiss: {
+                            duration: 2000
+                        }
+                    })
+                }))
+                .catch(error => {
+                    store.addNotification({
+                        title: 'Database Error',
+                        message: 'No Record Added',
+                        type: 'warning',
+                        container: 'center',
+                        animationIn: ["animated", "fadeIn"],
+                        animationOut: ["animated", "fadeOut"],
+                        dismiss: {
+                            duration: 2000
+                        }
+                    })
                 })
-            }))
-            .catch(error => {
-                store.addNotification({
-                    title: 'Database Error',
-                    message: 'No Record Added',
-                    type: 'warning',
-                    container: 'center',
-                    animationIn: ["animated", "fadeIn"],
-                    animationOut: ["animated", "fadeOut"],
-                    dismiss: {
-                        duration: 2000
-                    }
-                })
-            })
+        }
     }
 
 
@@ -162,8 +196,8 @@ export const AddEmployee = (props) => {
                                     <Col>
                                         <FormGroup>
                                             <label className="p-4"> EmailId:</label>
-                                            <input type="text" className="form-control" name="EmailId" id="txtEmailId" value={employee.EmailId}
-                                                onChange={changeHandle} />
+                                        <input type="text" className="form-control" name="EmailId" id="txtEmailId" value={employee.EmailId}
+                                            onChange={changeHandle} onBlur={emailValidate } />
 
                                         <span id="lblEmailIdError"></span>
 

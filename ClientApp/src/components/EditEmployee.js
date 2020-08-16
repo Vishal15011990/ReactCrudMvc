@@ -47,16 +47,7 @@ export const EditEmployee = (props) => {
         });
 
 
-        //$("#txtEmailId").on('blur', function () {
-        //    const emailId2 = $("#txtEmailId").val();
-        //    let regex = /^[a-zA-Z0-9]+@(?:[a-zA-Z0-9]+\.)+[A-Za-z]+$/;
-        //    if (!regex.test(emailId2)) {
-        //        $("#lblEmailIdError").html("Email Id Is Not Valid").show().fadeOut(1000);
-        //        $("#txtEmailId").val("");
-        //    }
-
-        //});
-
+     
 
         $("#txtAddress").on('focusout', function () {
             const address = $("#txtAddress").val();
@@ -97,25 +88,78 @@ export const EditEmployee = (props) => {
     },[]);
 
 
+    function emailValidate() {
+        const emailId = $("#txtEmailId").val();
+        let regex = /^[a-zA-Z0-9]+@(?:[a-zA-Z0-9]+\.)+[A-Za-z]+$/;
+        if (emailId === "" || !regex.test(emailId)) {
+            $("#lblEmailIdError").html("Enter EmailId Please").show().fadeOut(2000);
+            $("#txtEmailId").val("");
+        }
+    }
+
+    const validate = () => {
+        const name = $("#txtName").val();
+        const phone = $("#txtPhone").val();
+        const address = $("#txtAddress").val();
+        const dob = $("#txtDob").val();
+        const country = $("#txtCountry").val();
+        const state = $("#txtState").val();
+        const city = $("#txtCity").val();
+        if (name === "") {
+            $("#lblNameError").html("Enter name Please").show().fadeOut(2000);
+        }
+
+        else if (phone === "") {
+            $("#lblPhoneError").html("Enter Phone Number Please").show().fadeOut(2000);
+        }
+
+
+        else if (address === "") {
+            $("#lblAddressError").html("Enter Address Please").show().fadeOut(2000);
+        }
+
+
+        else if (dob === "") {
+            $("#lblDateofBirthError").html("Enter Dob Please").show().fadeOut(2000);
+        }
+
+        else if (country === "") {
+            $("#lblCountryError").html("Enter Country").show().fadeOut(2000);
+        }
+
+
+        else if (state === "") {
+            $("#lblStateError").html("Enter State").show().fadeOut(2000);
+        }
+
+
+        else if (city === "") {
+            $("#lblCityError").html("Enter City").show().fadeOut(2000);
+        }
+    }
+
     const editEmployee = (e) => {
-        debugger;
+       
         e.preventDefault();
-        const data = {
-            EmpId: parseInt(props.match.params.id),
-            Name: employee.name,
-            Phone: employee.phone,
-            EmailId: employee.emailId,
-            Address: employee.address,
-            Country: employee.country,
-            State: employee.state,
-            City: employee.city,
-            DateofBirth: employee.dateofBirth 
-            
+        const isValid = validate();
+        if (isValid) {
+            const data = {
+                EmpId: parseInt(props.match.params.id),
+                Name: employee.name,
+                Phone: employee.phone,
+                EmailId: employee.emailId,
+                Address: employee.address,
+                Country: employee.country,
+                State: employee.state,
+                City: employee.city,
+                DateofBirth: employee.dateofBirth
+
             }
-        axios.put(url,data)
-            .then(res => {
-                props.history.push('/')
-            })
+            axios.put(url, data)
+                .then(res => {
+                    props.history.push('/')
+                })
+        }
     }
 
 
@@ -149,7 +193,7 @@ export const EditEmployee = (props) => {
                                 <Col>
                                     <FormGroup>
                                         <label className="p-4"> EmailId:</label>
-                                        <input type="text" className="form-control" name="emailId" id="txtEmailId" value={employee.emailId} onChange={changeHandle} />
+                                        <input type="text" className="form-control" name="emailId" id="txtEmailId" value={employee.emailId} onChange={changeHandle} onBlur={emailValidate} />
 
                                         <span id="lblEmailIdError"></span>
 
