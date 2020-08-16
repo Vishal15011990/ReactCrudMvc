@@ -16,6 +16,7 @@ export const AddEmployee = (props) => {
     const changeHandle = (e) => {
         e.persist();
         setemployee({ ...employee, [e.target.name]: e.target.value });
+        employee["EmailId"] = "";
     }
 
     const [selectedDate, setSelectedDate] = useState();
@@ -36,6 +37,15 @@ export const AddEmployee = (props) => {
                 $("#lblPhoneError").html("Enter Phone Number Please").show().fadeOut(2000);
             }
         });
+
+        $("#txtEmailId").on('focusout', function () {
+            //const emailId = $("#txtEmailId").val();
+            if (employee["EmailId"] === "") {
+                $("#lblEmailIdError").html("Enter EmailId Please").show().fadeOut(2000);
+               
+            }
+        });
+
 
         $("#txtAddress").on('focusout', function () {
             const address = $("#txtAddress").val();
@@ -68,13 +78,13 @@ export const AddEmployee = (props) => {
                 $("#lblCityError").html("Enter City").show().fadeOut(2000);
             }
         });
-    }, []);
+    });
 
 
     function emailValidate() {
         const emailId = $("#txtEmailId").val();
         let regex = /^[a-zA-Z0-9]+@(?:[a-zA-Z0-9]+\.)+[A-Za-z]+$/;
-        if (emailId === "" || !regex.test(emailId)) {
+        if (!regex.test(emailId)) {
             $("#lblEmailIdError").html("Enter EmailId Please").show().fadeOut(2000);
             $("#txtEmailId").val("");
         }
@@ -83,6 +93,7 @@ export const AddEmployee = (props) => {
     const validate = () => {
         const name = $("#txtName").val();
         const phone = $("#txtPhone").val();
+        const emailId = $("#txtEmailId").val();
         const address = $("#txtAddress").val();
         const dob = $("#txtDob").val();
         const country = $("#txtCountry").val();
@@ -96,6 +107,9 @@ export const AddEmployee = (props) => {
             $("#lblPhoneError").html("Enter Phone Number Please").show().fadeOut(2000);
         }
 
+        else if (emailId === "") {
+            $("#lblEmailIdError").html("Enter EmailId Please").show().fadeOut(2000);
+        }
 
         else if (address === "") {
             $("#lblAddressError").html("Enter Address Please").show().fadeOut(2000);
@@ -127,9 +141,17 @@ export const AddEmployee = (props) => {
     const insertEmployee = (e) => {
         e.preventDefault();
        
-        const data = { Name: employee.Name, Phone: employee.Phone, EmailId: employee.EmailId, DateofBirth: selectedDate, Address: employee.Address, Country: employee.Country, State: employee.State, City: employee.City }
-        const isValid = validate();
-        if (isValid) {
+        const data = {
+            Name: employee.Name,
+            Phone: employee.Phone,
+            EmailId: employee.EmailId,
+            DateofBirth: selectedDate,
+            Address: employee.Address,
+            Country: employee.Country,
+            State: employee.State,
+            City: employee.City
+        }
+            debugger;
             axios.post(url, data)
                 .then((result => {
                     props.history.push('/')
@@ -158,7 +180,7 @@ export const AddEmployee = (props) => {
                         }
                     })
                 })
-        }
+       
     }
 
 

@@ -39,8 +39,8 @@ export const EditEmployee = (props) => {
 
         $("#txtEmailId").on('focusout', function () {
             const emailId = $("#txtEmailId").val();
-            let regex = /^[a-zA-Z0-9]+@(?:[a-zA-Z0-9]+\.)+[A-Za-z]+$/;
-            if (emailId === "" || !regex.test(emailId)) {
+            
+            if (emailId === "") {
                 $("#lblEmailIdError").html("Enter EmailId Please").show().fadeOut(2000);
                 $("#txtEmailId").val("");
             }
@@ -91,7 +91,7 @@ export const EditEmployee = (props) => {
     function emailValidate() {
         const emailId = $("#txtEmailId").val();
         let regex = /^[a-zA-Z0-9]+@(?:[a-zA-Z0-9]+\.)+[A-Za-z]+$/;
-        if (emailId === "" || !regex.test(emailId)) {
+        if ( !regex.test(emailId)) {
             $("#lblEmailIdError").html("Enter EmailId Please").show().fadeOut(2000);
             $("#txtEmailId").val("");
         }
