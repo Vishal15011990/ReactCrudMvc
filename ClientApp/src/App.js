@@ -4,6 +4,7 @@ import { Navigation } from './components/NavigationMenu'
 import { AddEmployee } from './components/AddEmployee'
 import { FetchEmployee } from './components/FetchEmployee'
 import { EditEmployee } from './components/EditEmployee'
+import { CustomError } from './components/CustomError'
 
 import ReactNotification from 'react-notifications-component';
 

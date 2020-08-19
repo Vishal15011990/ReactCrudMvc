@@ -97,52 +97,52 @@ export const EditEmployee = (props) => {
         }
     }
 
-    const validate = () => {
-        const name = $("#txtName").val();
-        const phone = $("#txtPhone").val();
-        const address = $("#txtAddress").val();
-        const dob = $("#txtDob").val();
-        const country = $("#txtCountry").val();
-        const state = $("#txtState").val();
-        const city = $("#txtCity").val();
-        if (name === "") {
-            $("#lblNameError").html("Enter name Please").show().fadeOut(2000);
-        }
+    //const validate = () => {
+    //    const name = $("#txtName").val();
+    //    const phone = $("#txtPhone").val();
+    //    const address = $("#txtAddress").val();
+    //    const dob = $("#txtDob").val();
+    //    const country = $("#txtCountry").val();
+    //    const state = $("#txtState").val();
+    //    const city = $("#txtCity").val();
+    //    if (name === "") {
+    //        $("#lblNameError").html("Enter name Please").show().fadeOut(2000);
+    //    }
 
-        else if (phone === "") {
-            $("#lblPhoneError").html("Enter Phone Number Please").show().fadeOut(2000);
-        }
-
-
-        else if (address === "") {
-            $("#lblAddressError").html("Enter Address Please").show().fadeOut(2000);
-        }
+    //    else if (phone === "") {
+    //        $("#lblPhoneError").html("Enter Phone Number Please").show().fadeOut(2000);
+    //    }
 
 
-        else if (dob === "") {
-            $("#lblDateofBirthError").html("Enter Dob Please").show().fadeOut(2000);
-        }
-
-        else if (country === "") {
-            $("#lblCountryError").html("Enter Country").show().fadeOut(2000);
-        }
+    //    else if (address === "") {
+    //        $("#lblAddressError").html("Enter Address Please").show().fadeOut(2000);
+    //    }
 
 
-        else if (state === "") {
-            $("#lblStateError").html("Enter State").show().fadeOut(2000);
-        }
+    //    else if (dob === "") {
+    //        $("#lblDateofBirthError").html("Enter Dob Please").show().fadeOut(2000);
+    //    }
+
+    //    else if (country === "") {
+    //        $("#lblCountryError").html("Enter Country").show().fadeOut(2000);
+    //    }
 
 
-        else if (city === "") {
-            $("#lblCityError").html("Enter City").show().fadeOut(2000);
-        }
-    }
+    //    else if (state === "") {
+    //        $("#lblStateError").html("Enter State").show().fadeOut(2000);
+    //    }
+
+
+    //    else if (city === "") {
+    //        $("#lblCityError").html("Enter City").show().fadeOut(2000);
+    //    }
+    //}
 
     const editEmployee = (e) => {
        
         e.preventDefault();
-        const isValid = validate();
-        if (isValid) {
+        //const isValid = validate();
+        //if (isValid) {
             const data = {
                 EmpId: parseInt(props.match.params.id),
                 Name: employee.name,
@@ -159,7 +159,7 @@ export const EditEmployee = (props) => {
                 .then(res => {
                     props.history.push('/')
                 })
-        }
+        //}
     }
 
 

@@ -1,112 +1,210 @@
-﻿import React, { useState, useEffect } from 'react';
+﻿import React, { useState, useEffect, useContext, useReducer } from 'react';
 import { Form, FormGroup, Col } from 'react-bootstrap';
 import axios from 'axios';
 import { store } from 'react-notifications-component'
 import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
-import $ from 'jquery'
+import $, { error, type } from 'jquery'
 import './formvalidation.css'
 import { Card, Table, Button } from 'react-bootstrap';
+import { ErrorContext } from './CustomError'
 
-//import { useForm } from 'react-hook-form'
+
+
 
 export const AddEmployee = (props) => {
 
-    const [employee, setemployee] = useState({ Name: '', Phone: '', EmailId: '', Address: '', Country: '', State: '', City: '', errors: '' });
-
+    const [employee, setemployee] = useState({ Name: '', Phone: '', EmailId: '', Address: '', Country: '', State: '', City: '' });
     const changeHandle = (e) => {
         e.persist();
         setemployee({ ...employee, [e.target.name]: e.target.value });
-        
+
     }
 
     const [selectedDate, setSelectedDate] = useState();
     const changeHandle2 = date => setSelectedDate(date);
-    
 
-    useEffect(() => {
-        $("#txtName").on('focusout', function () {
-            const name = $("#txtName").val();
-            if (name === "") {
-                $("#lblNameError").html("Enter name Please").show().fadeOut(2000);
-            }
-        });
-
-        $("#txtPhone").on('focusout', function () {
-            const phone = $("#txtPhone").val();
-            if (phone === "") {
-                $("#lblPhoneError").html("Enter Phone Number Please").show().fadeOut(2000);
-            }
-        });
-
-        $("#txtEmailId").on('focusout', function () {
-            const emailId = $("#txtEmailId").val();
-           
-            if (emailId === "") {
-                $("#lblEmailIdError").html("Enter EmailId Please").show().fadeOut(2000);
-               
-            }
-        });
+    //const [nameerrors, setErrors] = useState(false);
+    //const [phoneerrors, setError2] = useState(false);
+    //const [emailerrors, setError3] = useState(false);
+    //const [addresserrors, setError4] = useState(false);
+    //const [countryerrors, setError5] = useState(false);
+    //const [stateerrors, setError6] = useState(false);
+    //const [cityerrors, setError7] = useState(false);
 
 
-        $("#txtAddress").on('focusout', function () {
-            const address = $("#txtAddress").val();
-            if (address === "") {
-                $("#lblAddressError").html("Enter Address Please").show().fadeOut(2000);
-            }
-        });
+    const initialState = {
+        Name: '',
+        Phone: '',
+        EmailId: '',
+        Address: '',
+        Country: '',
+        State: '',
+        City: ''
+    }
 
-        $("#txtDob").on('focusout', function () {
-            const dob = $("#txtDob").val();
-            if (dob === "") {
-                $("#lblDateofBirthError").html("Enter Dob Please").show().fadeOut(2000);
-            }
-        });
-        $("#txtCountry").on('focusout', function () {
-            const country = $("#txtCountry").val();
-            if (country === "") {
-                $("#lblCountryError").html("Enter Country").show().fadeOut(2000);
-            }
-        });
-        $("#txtState").on('focusout', function () {
-            const state = $("#txtState").val();
-            if (state === "") {
-                $("#lblStateError").html("Enter State").show().fadeOut(2000);
-            }
-        });
-        $("#txtCity").on('focusout', function () {
-            const city = $("#txtCity").val();
-            if (city === "") {
-                $("#lblCityError").html("Enter City").show().fadeOut(2000);
-            }
-        });
-    });
-
-
-    function emailValidate() {
+    const reducer = (state, action) => {
+        let _nameerror, _phoneerror, _adderror, _countryerror, _emailerror, _stateerror, _cityerror
         
-        const emailId = $("#txtEmailId").val();
-        let regex = /^[a-zA-Z0-9]+@(?:[a-zA-Z0-9]+\.)+[A-Za-z]+$/;
-        if (!regex.test(emailId)) {
-            $("#lblEmailIdError").html("Enter EmailId Please").show().fadeOut(2000);
-            $("#txtEmailId").val("");
+        switch (action.type) {
+            case '_Name':
+                if (employee.Name === "") {
+                    _nameerror = "Name Required";
+                    return { _nameerror }
+                }
+                else {
+                    _nameerror = null;
+                }
+            case '_Phone':
+                if (employee.Phone === "") {
+                    _phoneerror = "Phone Required";
+                    return {  _phoneerror }
+                }
+                else {
+                    _phoneerror = null;
+                }
+            case '_EmailId':
+                let regex = /^[a-zA-Z0-9]+@(?:[a-zA-Z0-9]+\.)+[A-Za-z]+$/;
+                if (employee.EmailId === "" || !regex.test(employee.EmailId)) {
+                    _emailerror = "Email Required";
+                    return { _emailerror }
+                }
+                else {
+                    _emailerror = null;
+                }
+            case '_Address':
+                if (employee.Address === "") {
+                     _adderror = "Address Required";
+                    return {  _adderror }
+                }
+                else {
+                    _adderror = null;
+                }
+            case '_Country':
+                if (initialState.Country === "") {
+                     _countryerror ="Country Required";
+                    return {  _countryerror }
+                }
+            case '_State':
+                if (employee.State === "") {
+                    _stateerror = "State Required";
+                    return { _stateerror }
+                }
+                else {
+                    _stateerror = null;
+                }
+            case '_City':
+                if (employee.City === "") {
+                    _cityerror = "City Required";
+                    return {  _cityerror }
+                }
+                else {
+                    _cityerror = null;
+                }
+            default:
+                return {
+                    state
+                }
         }
     }
+
+
+    const [error, dispatch] = useReducer(reducer, initialState)
+    //const errorContext = useContext(ErrorContext)
+
+
+    //useEffect(() => {
+    //    $("#txtName").on('focusout', function () {
+    //        const name = $("#txtName").val();
+    //        if (name === "") {
+    //            $("#lblNameError").html("Enter name Please").show().fadeOut(2000);
+    //        }
+    //    });
+
+    //    $("#txtPhone").on('focusout', function () {
+    //        const phone = $("#txtPhone").val();
+    //        if (phone === "") {
+    //            $("#lblPhoneError").html("Enter Phone Number Please").show().fadeOut(2000);
+    //        }
+    //    });
+
+    //    $("#txtEmailId").on('focusout', function () {
+    //        const emailId = $("#txtEmailId").val();
+           
+    //        if (emailId === "") {
+    //            $("#lblEmailIdError").html("Enter EmailId Please").show().fadeOut(2000);
+               
+    //        }
+    //    });
+
+
+    //    $("#txtAddress").on('focusout', function () {
+    //        const address = $("#txtAddress").val();
+    //        if (address === "") {
+    //            $("#lblAddressError").html("Enter Address Please").show().fadeOut(2000);
+    //        }
+    //    });
+
+    //    $("#txtDob").on('focusout', function () {
+    //        const dob = $("#txtDob").val();
+    //        if (dob === "") {
+    //            $("#lblDateofBirthError").html("Enter Dob Please").show().fadeOut(2000);
+    //        }
+    //    });
+    //    $("#txtCountry").on('focusout', function () {
+    //        const country = $("#txtCountry").val();
+    //        if (country === "") {
+    //            $("#lblCountryError").html("Enter Country").show().fadeOut(2000);
+    //        }
+    //    });
+    //    $("#txtState").on('focusout', function () {
+    //        const state = $("#txtState").val();
+    //        if (state === "") {
+    //            $("#lblStateError").html("Enter State").show().fadeOut(2000);
+    //        }
+    //    });
+    //    $("#txtCity").on('focusout', function () {
+    //        const city = $("#txtCity").val();
+    //        if (city === "") {
+    //            $("#lblCityError").html("Enter City").show().fadeOut(2000);
+    //        }
+    //    });
+    //});
+
+    //function empName() {
+    //    if (employee.Name === "") {
+    //        errorContext.errorDispatch({ type: 'name' })
+    //        setErrors(errorContext.errorMsg.Name)
+    //    }
+    //    else {
+    //        setErrors(!nameerrors);
+    //    }
+    //}
+
+    //function empPhone() {
+    //    if (employee.Phone === "") {
+    //        errorContext.errorDispatch({ type: 'phone' })
+    //        setError2(errorContext.errorMsg.Phone)
+    //    }
+    //    else {
+    //        setError2(!phoneerrors);
+    //    }
+    //}
+
+    //function emailValidate() {
+    //    const emailId = $("#txtEmailId").val();
+    //    let regex = /^[a-zA-Z0-9]+@(?:[a-zA-Z0-9]+\.)+[A-Za-z]+$/;
+    //    if (!regex.test(emailId)) {
+    //        $("#lblEmailIdError").html("Enter EmailId Please").show().fadeOut(2000);
+    //        $("#txtEmailId").val("");
+    //    }
+    //}
 
 
 
     const url = "http://localhost:59447/api/EmployeeMasters/Create";
     const insertEmployee = (e) => {
         e.preventDefault();
-
-        //const name = $("#txtName").val();
-        //const phone = $("#txtPhone").val();
-        //const emailId = $("#txtEmailId").val();
-        //const address = $("#txtAddress").val();
-        //const dob = $("#txtDob").val();
-        //const country = $("#txtCountry").val();
-        //const state = $("#txtState").val();
-        //const city = $("#txtCity").val();
 
         const data = {
             Name: employee.Name,
@@ -118,12 +216,6 @@ export const AddEmployee = (props) => {
             State: employee.State,
             City: employee.City
         }
-
-        //debugger;
-        //if (employee.Name === "" && employee.Phone === "" && employee.EmailId === "" && employee.Address === "" && selectedDate === "" && employee.Country === "" && employee.State === "" && employee.City === "") {
-        //    $("#lblDetailedError").html("Enter name Please").show().fadeOut(2000);
-        //}
-        //else {
             
             axios.post(url, data)
                 .then((result => {
@@ -175,10 +267,9 @@ export const AddEmployee = (props) => {
                                     <Col>
                                         <FormGroup>
                                             <label className="p-4"> Name:</label>
-                                            <input type="text" className="form-control" name="Name"
-                                                id="txtName" value={employee.Name} onChange={changeHandle}  />
-
-                                            <span id="lblNameError"></span>
+                                        <input type="text" className="form-control" name="Name" id="txtName" value={employee.Name}
+                                            onChange={changeHandle} onBlur={() => dispatch({ type: '_Name' })} />
+                                        <span id="lblNameError">{error._nameerror}</span>
 
                                         </FormGroup>
                                     </Col>
@@ -186,9 +277,9 @@ export const AddEmployee = (props) => {
                                         <FormGroup>
                                             <label className="p-4"> Phone:</label>
                                             <input type="text" className="form-control" name="Phone" id="txtPhone" value={employee.Phone} onChange={changeHandle}
-                                                maxLength="10" />
+                                            maxLength="10" onBlur={() => dispatch({ type: '_Phone' })}/>
 
-                                        <span id="lblPhoneError"></span>
+                                        <span id="lblPhoneError">{error._phoneerror}</span>
 
                                         </FormGroup>
                                     </Col>
@@ -198,9 +289,9 @@ export const AddEmployee = (props) => {
                                         <FormGroup>
                                             <label className="p-4"> EmailId:</label>
                                         <input type="text" className="form-control" name="EmailId" id="txtEmailId" value={employee.EmailId}
-                                            onChange={changeHandle} onBlur={emailValidate } />
+                                            onChange={changeHandle} onBlur={() => dispatch({ type: '_EmailId' })} />
 
-                                        <span id="lblEmailIdError"></span>
+                                        <span id="lblEmailIdError">{error._emailerror}</span>
 
                                         </FormGroup>
                                     </Col>
@@ -218,10 +309,10 @@ export const AddEmployee = (props) => {
                                     <Col>
                                         <FormGroup>
                                             <label className="p-4">Address:</label>
-                                            <input type="text" className="form-control" name="Address" id="txtAddress" value={employee.Address} onChange={changeHandle}
-                                            />
+                                        <input type="text" className="form-control" name="Address" id="txtAddress" value={employee.Address} onChange={changeHandle}
+                                            onBlur={() => dispatch({ type: '_Address' })} />
 
-                                        <span id="lblAddressError"></span>
+                                        <span id="lblAddressError">{error._adderror}</span>
 
                                         </FormGroup>
                                     </Col>
@@ -229,9 +320,9 @@ export const AddEmployee = (props) => {
                                         <FormGroup>
                                             <label className="p-4">Country:</label>
                                             <input type="text" className="form-control" name="Country" id="txtCountry" value={employee.Country} onChange={changeHandle}
-                                            />
+                                            onBlur={() => dispatch({ type: '_Country' })} />
 
-                                        <span id="lblCountryError"></span>
+                                        <span id="lblCountryError">{error._countryerror}</span>
 
                                         </FormGroup>
                                     </Col>
@@ -241,9 +332,9 @@ export const AddEmployee = (props) => {
                                         <FormGroup>
                                             <label className="p-4"> State:</label>
                                             <input type="text" className="form-control" name="State" id="txtState" value={employee.State} onChange={changeHandle}
-                                            />
+                                            onBlur={() => dispatch({ type: '_State' })} />
 
-                                        <span id="lblStateError"></span>
+                                        <span id="lblStateError">{error._stateerror}</span>
 
                                         </FormGroup>
                                     </Col>
@@ -251,9 +342,9 @@ export const AddEmployee = (props) => {
                                         <FormGroup>
                                             <label className="p-4">City:</label>
                                             <input type="text" className="form-control" name="City" id="txtCity" value={employee.City} onChange={changeHandle}
-                                            />
+                                            onBlur={() => dispatch({ type: '_City' })} />
 
-                                        <span id="lblCityError"></span>
+                                        <span id="lblCityError">{error._cityerror}</span>
 
                                         </FormGroup>
                                     </Col>
@@ -261,8 +352,8 @@ export const AddEmployee = (props) => {
                             </Form.Row>
                             <Form.Row className="mt-3">
                                     <Col >
-                                        <FormGroup>
-                                            <input type="submit" className="form-control btn btn-primary" value="Submit" />
+                                    <FormGroup>
+                                        <input type="submit" className="form-control btn btn-primary" value="Submit" />
                                         </FormGroup>
                                     </Col>
                                 </Form.Row>
