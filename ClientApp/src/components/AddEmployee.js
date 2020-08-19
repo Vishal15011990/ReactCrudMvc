@@ -112,65 +112,6 @@ export const AddEmployee = (props) => {
     const [error, dispatch] = useReducer(reducer, initialState)
     //const errorContext = useContext(ErrorContext)
 
-
-    //useEffect(() => {
-    //    $("#txtName").on('focusout', function () {
-    //        const name = $("#txtName").val();
-    //        if (name === "") {
-    //            $("#lblNameError").html("Enter name Please").show().fadeOut(2000);
-    //        }
-    //    });
-
-    //    $("#txtPhone").on('focusout', function () {
-    //        const phone = $("#txtPhone").val();
-    //        if (phone === "") {
-    //            $("#lblPhoneError").html("Enter Phone Number Please").show().fadeOut(2000);
-    //        }
-    //    });
-
-    //    $("#txtEmailId").on('focusout', function () {
-    //        const emailId = $("#txtEmailId").val();
-           
-    //        if (emailId === "") {
-    //            $("#lblEmailIdError").html("Enter EmailId Please").show().fadeOut(2000);
-               
-    //        }
-    //    });
-
-
-    //    $("#txtAddress").on('focusout', function () {
-    //        const address = $("#txtAddress").val();
-    //        if (address === "") {
-    //            $("#lblAddressError").html("Enter Address Please").show().fadeOut(2000);
-    //        }
-    //    });
-
-    //    $("#txtDob").on('focusout', function () {
-    //        const dob = $("#txtDob").val();
-    //        if (dob === "") {
-    //            $("#lblDateofBirthError").html("Enter Dob Please").show().fadeOut(2000);
-    //        }
-    //    });
-    //    $("#txtCountry").on('focusout', function () {
-    //        const country = $("#txtCountry").val();
-    //        if (country === "") {
-    //            $("#lblCountryError").html("Enter Country").show().fadeOut(2000);
-    //        }
-    //    });
-    //    $("#txtState").on('focusout', function () {
-    //        const state = $("#txtState").val();
-    //        if (state === "") {
-    //            $("#lblStateError").html("Enter State").show().fadeOut(2000);
-    //        }
-    //    });
-    //    $("#txtCity").on('focusout', function () {
-    //        const city = $("#txtCity").val();
-    //        if (city === "") {
-    //            $("#lblCityError").html("Enter City").show().fadeOut(2000);
-    //        }
-    //    });
-    //});
-
     //function empName() {
     //    if (employee.Name === "") {
     //        errorContext.errorDispatch({ type: 'name' })
