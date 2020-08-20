@@ -115,9 +115,24 @@ namespace ReactCrudMvc.Controllers
             return true; 
         }
 
-        //private bool employeemasterexists(int id)
-        //{
-        //    return _context.employeemaster.any(e => e.empid == id);
-        //}
+        
+        [HttpPost]
+        [Route("Login")]
+        public bool Login(EmployeeMaster emp)
+        {
+            try
+            {
+                bool emp2 = _context.EmployeeMaster.Any(x => x.Name == emp.Name && x.EmailId == emp.EmailId);
+                if (emp2)
+                {
+                    return true;
+                }
+            }
+            catch(Exception e)
+            {
+                throw e;
+            }
+            return false;
+        }
     }
 }

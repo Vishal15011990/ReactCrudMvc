@@ -81,7 +81,7 @@ export const AddEmployee = (props) => {
                     _adderror = null;
                 }
             case '_Country':
-                if (initialState.Country === "") {
+                if (employee.Country === "") {
                      _countryerror ="Country Required";
                     return {  _countryerror }
                 }
@@ -197,6 +197,7 @@ export const AddEmployee = (props) => {
         <React.Fragment>
             <Card className="mt-4">
                 <Card.Header>
+                    Add Employee
                     <span id="lblDetailedError" className="h3"></span>
                 </Card.Header>
             </Card>

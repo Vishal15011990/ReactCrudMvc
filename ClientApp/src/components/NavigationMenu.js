@@ -9,7 +9,8 @@ export const Navigation = () => {
                 <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                 <Navbar.Collapse id="responsive-navbar-nav">
                     <Nav>
-                        <NavLink className="text-white m-2 bg-dark" to='/' >GetData</NavLink>
+                        <NavLink className="text-white m-2 bg-dark" to='/' >Login</NavLink>
+                        <NavLink className="text-white m-2 bg-dark" to='/Get' >GetData</NavLink>
                         <NavLink className="text-white m-2 bg-dark" to='/Add'>AddData</NavLink>
                     </Nav>
                 </Navbar.Collapse>

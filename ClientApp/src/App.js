@@ -4,7 +4,8 @@ import { Navigation } from './components/NavigationMenu'
 import { AddEmployee } from './components/AddEmployee'
 import { FetchEmployee } from './components/FetchEmployee'
 import { EditEmployee } from './components/EditEmployee'
-import { CustomError } from './components/CustomError'
+import { Login } from './components/Login'
+/*import { userService, authenticationService } from '@/_services'*/;
 
 import ReactNotification from 'react-notifications-component';
 
@@ -21,7 +22,8 @@ export default class App extends Component {
                     <Navigation />
                     <ReactNotification/>
                     <Switch>
-                        <Route path='/' component={FetchEmployee} exact />
+                        <Route path='/' component={Login} exact />
+                        <Route path='/Get' component={FetchEmployee} exact />
                         <Route path='/Add' component={AddEmployee} />
                         <Route path='/Edit:id' component={EditEmployee}/>
                     </Switch>

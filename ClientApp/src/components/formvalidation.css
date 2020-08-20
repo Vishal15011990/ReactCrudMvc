@@ -2,3 +2,16 @@
     color:red;
     position:absolute;
 }
+.lblUsername, .lblEmailid {
+    color: red;
+    position: absolute;
+    margin-top: 69px;
+    margin-left: 0px;
+}
+
+.form-group.frm1.form-row {
+    margin-bottom: 34px;
+}
+form._form {
+    margin-top: 20px;
+}
