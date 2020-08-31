@@ -8,10 +8,7 @@ import $, { error, type } from 'jquery'
 import './formvalidation.css'
 import { Card, Table, Button } from 'react-bootstrap';
 import { ErrorContext } from './CustomError'
-
-
-
-
+import { Input } from '../components/UI/Input'
 export const AddEmployee = (props) => {
 
     const [employee, setemployee] = useState({ Name: '', Phone: '', EmailId: '', Address: '', Country: '', State: '', City: '' });
@@ -208,8 +205,8 @@ export const AddEmployee = (props) => {
                                 <Form.Row>
                                     <Col>
                                         <FormGroup>
-                                            <label className="p-4"> Name:</label>
-                                        <input type="text" className="form-control" name="Name" id="txtName" value={employee.Name}
+                                        <label className="p-4"> Name:</label>
+                                        <Input inputtype="input" type="text" className="form-control" name="Name" id="txtName" value={employee.Name}
                                             onChange={changeHandle} onBlur={() => dispatch({ type: '_Name' })} />
                                         <span id="lblNameError">{error._nameerror}</span>
 
@@ -217,8 +214,8 @@ export const AddEmployee = (props) => {
                                     </Col>
                                     <Col>
                                         <FormGroup>
-                                            <label className="p-4"> Phone:</label>
-                                            <input type="text" className="form-control" name="Phone" id="txtPhone" value={employee.Phone} onChange={changeHandle}
+                                        <label className="p-4"> Phone:</label>
+                                        <Input inputtype="input" type="text" className="form-control" name="Phone" id="txtPhone" value={employee.Phone} onChange={changeHandle}
                                             maxLength="10" onBlur={() => dispatch({ type: '_Phone' })}/>
 
                                         <span id="lblPhoneError">{error._phoneerror}</span>
@@ -230,7 +227,7 @@ export const AddEmployee = (props) => {
                                     <Col>
                                         <FormGroup>
                                             <label className="p-4"> EmailId:</label>
-                                        <input type="text" className="form-control" name="EmailId" id="txtEmailId" value={employee.EmailId}
+                                        <Input inputtype="input" type="text" className="form-control" name="EmailId" id="txtEmailId" value={employee.EmailId}
                                             onChange={changeHandle} onBlur={() => dispatch({ type: '_EmailId' })} />
 
                                         <span id="lblEmailIdError">{error._emailerror}</span>
@@ -251,7 +248,7 @@ export const AddEmployee = (props) => {
                                     <Col>
                                         <FormGroup>
                                             <label className="p-4">Address:</label>
-                                        <input type="text" className="form-control" name="Address" id="txtAddress" value={employee.Address} onChange={changeHandle}
+                                        <Input inputtype="input" type="text" className="form-control" name="Address" id="txtAddress" value={employee.Address} onChange={changeHandle}
                                             onBlur={() => dispatch({ type: '_Address' })} />
 
                                         <span id="lblAddressError">{error._adderror}</span>
@@ -261,7 +258,7 @@ export const AddEmployee = (props) => {
                                     <Col>
                                         <FormGroup>
                                             <label className="p-4">Country:</label>
-                                            <input type="text" className="form-control" name="Country" id="txtCountry" value={employee.Country} onChange={changeHandle}
+                                        <Input inputtype="input" type="text" className="form-control" name="Country" id="txtCountry" value={employee.Country} onChange={changeHandle}
                                             onBlur={() => dispatch({ type: '_Country' })} />
 
                                         <span id="lblCountryError">{error._countryerror}</span>
@@ -273,7 +270,7 @@ export const AddEmployee = (props) => {
                                     <Col>
                                         <FormGroup>
                                             <label className="p-4"> State:</label>
-                                            <input type="text" className="form-control" name="State" id="txtState" value={employee.State} onChange={changeHandle}
+                                        <Input inputtype="input" type="text" className="form-control" name="State" id="txtState" value={employee.State} onChange={changeHandle}
                                             onBlur={() => dispatch({ type: '_State' })} />
 
                                         <span id="lblStateError">{error._stateerror}</span>
@@ -283,7 +280,7 @@ export const AddEmployee = (props) => {
                                     <Col>
                                         <FormGroup>
                                             <label className="p-4">City:</label>
-                                            <input type="text" className="form-control" name="City" id="txtCity" value={employee.City} onChange={changeHandle}
+                                        <Input inputtype="input" type="text" className="form-control" name="City" id="txtCity" value={employee.City} onChange={changeHandle}
                                             onBlur={() => dispatch({ type: '_City' })} />
 
                                         <span id="lblCityError">{error._cityerror}</span>
@@ -295,7 +292,7 @@ export const AddEmployee = (props) => {
                             <Form.Row className="mt-3">
                                     <Col >
                                     <FormGroup>
-                                        <input type="submit" className="form-control btn btn-primary" value="Submit" />
+                                        <Input inputtype="input" type="submit" className="form-control btn btn-primary" value="Submit" />
                                         </FormGroup>
                                     </Col>
                                 </Form.Row>

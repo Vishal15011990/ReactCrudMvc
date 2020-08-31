@@ -1,5 +1,10 @@
 ﻿import React, { useEffect, useState } from 'react';
 import { Card, Table, Button } from 'react-bootstrap';
+import { BrowserRouter, Switch, Route, withRouter } from 'react-router-dom'
+import { Navigation } from './NavigationMenu'
+import { AddEmployee } from './AddEmployee'
+import { EditEmployee } from './EditEmployee'
+import { Login } from './Login'
 import axios from 'axios';
 
 
@@ -38,6 +43,7 @@ export const FetchEmployee = (props) => {
 
     return (
         <React.Fragment>
+            
             <Card className="mt-4">
                 <Card.Header>
                     <h1 className="h3">Get Data</h1>
